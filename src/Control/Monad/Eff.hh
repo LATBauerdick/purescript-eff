@@ -72,7 +72,7 @@ namespace Control_Monad_Eff {
   inline auto foreachE(const any& as_) -> any {
     return [=](const any& f) -> any {
       return [=]() -> any {
-        const any::array& as = as_;
+        const any::vector& as = as_;
         for (auto it = as.begin(); it != as.end(); ++it) {
           f(*it)();
         }
