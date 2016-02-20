@@ -26,11 +26,9 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto bindE(const any& a) -> any {
-    return [=](const any& f) -> any {
-      return [=]() -> any {
-        return f(a())();
-      };
+  inline auto $bindE(const any& a, const any& f) -> any {
+    return [=]() -> any {
+      return f(a())();
     };
   }
 
@@ -45,41 +43,32 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto whileE(const any& f) -> any {
-    return [=](const any& a) -> any {
-      return [=]() -> any {
-        while (f().cast<bool>()) {
-          a();
-        }
-        return Prelude::unit;
-      };
+  inline auto $whileE(const any& f, const any& a) -> any {
+    return [=]() -> any {
+      while (f().cast<bool>()) {
+        a();
+      }
+      return Prelude::unit;
     };
   }
 
-  inline auto forE(const any& lo) -> any {
-    return [=](const any& hi) -> any {
-      return [=](const any& f) -> any {
-        return [=]() -> any {
-          for (auto i = lo.cast<double>(); i < hi.cast<double>(); i++) {
-            f(i)();
-          }
-          return Prelude::unit;
-        };
-      };
+  inline auto $forE(const any& lo, const any& hi, const any& f) -> any {
+    return [=]() -> any {
+      for (auto i = lo.cast<double>(); i < hi.cast<double>(); i++) {
+        f(i)();
+      }
+      return Prelude::unit;
     };
   }
 
-  inline auto foreachE(const any& as_) -> any {
-    return [=](const any& f) -> any {
-      return [=]() -> any {
-        const any::array& as = as_;
-        for (auto it = as.begin(); it != as.end(); ++it) {
-          f(*it)();
-        }
-        return Prelude::unit;
-      };
+  inline auto $foreachE(const any::array& as, const any& f) -> any {
+    return [=]() -> any {
+      for (auto it = as.cbegin(), end = as.cend(); it != end; ++it) {
+        f(*it)();
+      }
+      return Prelude::unit;
     };
-  }
+  };
 }
 
 
