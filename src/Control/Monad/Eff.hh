@@ -26,7 +26,7 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto $bindE(const any& a, const any& f) -> any {
+  inline auto bindE(const any& a, const any& f) -> any {
     return [=]() -> any {
       return f(a())();
     };
@@ -43,7 +43,7 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto $whileE(const any& f, const any& a) -> any {
+  inline auto whileE(const any& f, const any& a) -> any {
     return [=]() -> any {
       while (f().cast<bool>()) {
         a();
@@ -52,7 +52,7 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto $forE(const any& lo, const any& hi, const any& f) -> any {
+  inline auto forE(const any& lo, const any& hi, const any& f) -> any {
     return [=]() -> any {
       for (auto i = lo.cast<double>(); i < hi.cast<double>(); i++) {
         f(i)();
@@ -61,7 +61,7 @@ namespace Control_Monad_Eff {
     };
   }
 
-  inline auto $foreachE(const any::array& as, const any& f) -> any {
+  inline auto foreachE(const any::array& as, const any& f) -> any {
     return [=]() -> any {
       for (auto it = as.cbegin(), end = as.cend(); it != end; ++it) {
         f(*it)();
