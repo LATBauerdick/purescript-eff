@@ -38,14 +38,14 @@ namespace Control_Monad_Eff {
 
   inline auto untilE(const any& f) -> any {
     return [=]() -> any {
-      while (!(f()).cast<bool>());
+      while (not cast<bool>(f()));
       return Prelude::unit;
     };
   }
 
   inline auto whileE(const any& f, const any& a) -> any {
     return [=]() -> any {
-      while (f().cast<bool>()) {
+      while (cast<bool>(f())) {
         a();
       }
       return Prelude::unit;
@@ -54,8 +54,8 @@ namespace Control_Monad_Eff {
 
   inline auto forE(const any& lo, const any& hi, const any& f) -> any {
     return [=]() -> any {
-      for (auto i = lo.cast<double>(); i < hi.cast<double>(); i++) {
-        f(i)();
+      for (double d = lo; d < hi; d++) {
+        f(d)();
       }
       return Prelude::unit;
     };
