@@ -20,6 +20,11 @@
 namespace Control_Monad_Eff_Unsafe {
   using namespace PureScript;
 
+  // foreign import unsafeInterleaveEff
+  //   :: forall eff1 eff2 a
+  //    . Eff eff1 a
+  //   -> Eff eff2 a
+  //
   inline auto unsafeInterleaveEff(const any& f) -> any {
     return f;
   }
