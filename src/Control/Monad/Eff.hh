@@ -46,7 +46,7 @@ namespace Control_Monad_Eff {
   //
   inline auto untilE(const any& f) -> any {
     return [=]() -> any {
-      while (not cast<bool>(f()));
+      while (not static_cast<bool>(f()));
       return Data_Unit::unit;
     };
   }
@@ -55,7 +55,7 @@ namespace Control_Monad_Eff {
   //
   inline auto whileE(const any& f, const any& a) -> any {
     return [=]() -> any {
-      while (cast<bool>(f())) {
+      while (static_cast<bool>(f())) {
         a();
       }
       return Data_Unit::unit;
