@@ -66,7 +66,7 @@ namespace Control_Monad_Eff {
   //
   inline auto forE(const any& lo, const any& hi, const any& f) -> any {
     return [=]() -> any {
-      for (double d = lo; d < hi; d++) {
+      for (int d = lo; d < hi; d++) {
         f(d)();
       }
       return Data_Unit::unit;
